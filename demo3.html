@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+ <head>
+ <meta charset="UTF-8">
+ <title></title>
+ <script src="https://unpkg.com/vue/dist/vue.js"></script>
+ <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> 
+ </head>
+ <body>
+ <div id="container">
+    <p>{{msg}}</p>
+    <router-view></router-view>
+  </div>
+  <script>
+    var testLogin = Vue.component("login",{
+      template:`
+        <div>
+          <h1>这是我的登录页面</h1>
+        </div>
+      `
+    })
+    var testRegister = Vue.component("register",{
+      template:`
+        <div>
+          <h1>这是我的注册页面</h1>
+        </div>
+      `
+    })
+    const  myRoutes =[
+      {path:'',component:testLogin},
+      {path:'/myLogin',component:testLogin},
+      {path:'/myRegister',component:testRegister}
+    ]
+
+    const myRouter = new VueRouter({
+      routes:myRoutes
+    })
+    new Vue({
+      router:myRouter,
+      el:"#container",
+      data:{
+        msg:"Hello VueJs"
+      }
+    })
+  </script>
+ </body>
+</html>

@@ -1,0 +1,112 @@
+<html>  
+  <head>  
+    <meta charset="utf-8" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1" />  
+    <title>路由测试页面</title>  
+  
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> 
+  </head>  
+  <body class="main">  
+    <div id="app">  
+      <div>  
+        <!--  
+        router-link to属性就是指向某个具体的链接，链接的内容会被渲染到router-view标签中  
+        router-link会被渲染成a标签，例如第一个会变成<a href="#/first">第一个页面</a>,前面加了个#  
+        -->  
+        <router-link to="/p1link">第1个页面</router-link>  
+        <router-link to="/p2link">第2个页面</router-link>  
+        <a href="#" @click="showView">手动跳转到第3个页面</a>  
+        <a href="#" @click="showViewEx(24)">带参数手动跳转到第4个页面</a>  
+      </div>  
+      <router-view></router-view>  
+    </div>  
+  
+    <script type="text/x-template" id="p1_template">  
+      <div class="p1">第1个页面内容，我的名字：{{name}}</div>  
+    </script>  
+    <script type="text/javascript">  
+      var p1view = Vue.component("p1view", {  
+        template: "#p1_template",  
+        data: function() {  
+          return {  
+            name: "wallimn"  
+          };  
+        }  
+      });  
+    </script>  
+    <script type="text/x-template" id="p2_template">  
+      <div class="p2">第2个页面内容，我的博客地址：{{blog}}</div>  
+    </script>  
+    <script type="text/javascript">  
+      var p2view = Vue.component("p2view", {  
+        template: "#p2_template",  
+        data: function() {  
+          return {  
+            blog: "http://wallimn.iteye.com"  
+          };  
+        }  
+      });  
+    </script>  
+    <script type="text/x-template" id="p3_template">  
+      <div class="p3">第3个页面内容，今天是：{{today}}</div>  
+    </script>  
+    <script type="text/javascript">  
+      var p3view = Vue.component("p3view", {  
+        template: "#p3_template",  
+        data: function() {  
+          return {  
+            today: "2019-03-04"  
+          };  
+        }  
+      });  
+    </script>  
+  
+    <script type="text/x-template" id="p4_template">  
+      <div class="p4">第4个页面内容，参数：id={{id}}</div>  
+    </script>  
+    <script type="text/javascript">  
+      var p4view = Vue.component("p4view", {  
+        template: "#p4_template",  
+        data: function() {  
+          return {  
+            id: null  
+          };  
+        },  
+        mounted: function() {  
+          thisthis.id = this.$route.params.id;  
+        }  
+      });  
+    </script>  
+  
+    <script type="text/javascript">  
+      /*  
+       * 声明路由  
+       */  
+      var router = new VueRouter({  
+        routes: [  
+          { path: "/p1link", component: p1view },  
+          { path: "/p2link", component: p2view },  
+          { path: "/p3link", component: p3view },  
+          { path: "/p4link:id", component: p4view } //注意参数声明  
+        ]  
+      });  
+  
+      // Vue实例化  
+      var doit = new Vue({  
+        el: "#app",  
+        data: {},  
+        methods: {  
+          showView: function() {  
+            this.$router.push({ path: "/p3link" });  
+          },  
+          showViewEx: function(id) {  
+            this.$router.push({ path: `/p4link${id}` }); //注意是反引号  
+          }  
+        },  
+        router //配置路由  
+      });  
+    </script>  
+  </body>  
+</html>  
