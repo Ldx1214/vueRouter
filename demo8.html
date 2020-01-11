@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+    <!-- view视图 -->
+    <div id="id">
+        <p>{{msg}}</p>
+    </div>
+    <script>
+        // 当引入vue.js，页面就有一个vue的构造函数
+        // view-model
+        var vm=new Vue({
+            el:'#id',
+            // m模块，存储数据
+            data:{
+                msg:'哈哈哈'
+            }
+        })
+        // vue不建议我们直接操作dom元素，而是交给vue实例
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+ 
+<div id="container">
+    <p>{{msg}}</p>
+    <button @click="handleClick">点 我</button>
+    <h1 v-if="count < 8" v-change="count">it is a custom directive</h1>
+</div>
+<script>
+    //directive
+    new Vue({
+        el: '#container',
+        data: {
+            msg: 'Hello Vue',
+            count: 0
+        },
+        methods: {
+            handleClick: function () {
+                //按钮单击，count自增
+                this.count++;
+            }
+        },
+        directives: {
+            change: {
+                bind: function (el, bindings) {
+                    console.log('指令已经绑定到元素了');
+                    console.log(el);
+                    console.log(bindings);
+                    //准备将传递来的参数
+                    // 显示在调用该指令的元素的innerHTML
+                    el.innerHTML = bindings.value;
+                },
+                update: function (el, bindings) {
+                    console.log('指令的数据有所变化');
+                    console.log(el);
+                    console.log(bindings);
+                    el.innerHTML = bindings.value;
+                    if (bindings.value == 8) {
+                        console.log(' it is a test');
+                    }
+                },
+                unbind: function () {
+                    console.log('解除绑定了');
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
